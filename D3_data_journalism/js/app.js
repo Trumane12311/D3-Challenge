@@ -14,7 +14,16 @@ let svg = d3.select("#scatter")
           "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("D3_data_journalism/data.csv", function(data) {
+d3.csv("D3_data_journalism/data.csv").then(censusData => {
+  console.log(censusData);
+
+  // format the data
+  censusData.forEach(function(data) {
+    data.income = +data.income;
+    console.log(data.income);
+    data.healthcare = parseInt(+data.healthcare);
+    console.log(data.healthcare);
+  })
 
   // Add X axis
   let x = d3.scaleLinear()
@@ -70,7 +79,7 @@ d3.csv("D3_data_journalism/data.csv", function(data) {
   // Add dots
   svg.append('g')
     .selectAll("dot")
-    .data(data.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
+    .data(censusData.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
     .enter()
     .append("circle")
       .attr("cx", function (d) { return x(d.GrLivArea); } )
