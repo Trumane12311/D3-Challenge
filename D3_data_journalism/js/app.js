@@ -84,8 +84,8 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
     .data(censusData.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.GrLivArea); } )
-      .attr("cy", function (d) { return y(d.SalePrice); } )
+      .attr("cx", function (d) { return x(d.income); } )
+      .attr("cy", function (d) { return y(d.healthcare); } )
       .attr("r", 7)
       .style("fill", "#69b3a2")
       .style("opacity", 0.3)
