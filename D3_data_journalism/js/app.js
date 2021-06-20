@@ -21,13 +21,13 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
   censusData.forEach(function(data) {
     data.income = +data.income;
     console.log(data.income);
-    data.healthcare = parseInt(+data.healthcare);
-    console.log(data.healthcare);
+    data.healthcare = +data.healthcare;
+    console.log(data.healthcare)
   })
 
   // Add X axis
   let x = d3.scaleLinear()
-    .domain([0, 3000])
+    .domain([0, d3.max(censusData, d => d.income)])
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -35,11 +35,13 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
 
   // Add Y axis
   let y = d3.scaleLinear()
-    .domain([0, 400000])
+    .domain([0, d3.max(censusData, d => d.healthcare)])
     .range([ height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
 
+  let bottomAxis = d3.axisBottom(x)
+  let leftAxis = d3.axisLeft(y)
   // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
   // Its opacity is set to 0: we don't see it by default.
   let tooltip = d3.select("#scatter")
@@ -91,5 +93,20 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
     .on("mouseover", mouseover )
     .on("mousemove", mousemove )
     .on("mouseleave", mouseleave )
-
+    
+    svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .classed("axis-text", true)
+    .text("Healthcare");
+    
+    svg.append("text")
+    .attr("transform", "rotate(0)")
+    .attr("y", 0 - (width / 2))
+    .attr("x", 0 - margin.bottom)
+    .attr("dx", "1em")
+    .classed("axis-text", true)
+    .text("Income");
 })
