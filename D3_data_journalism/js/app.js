@@ -5,7 +5,7 @@ let margin = {top: 10, right: 30, bottom: 30, left: 60},
     height = 450 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-let svg = d3.select("#my_dataviz")
+let svg = d3.select("#scatter")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -14,7 +14,7 @@ let svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", function(data) {
+d3.csv("D3_data_journalism/data.csv", function(data) {
 
   // Add X axis
   let x = d3.scaleLinear()
@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
 
   // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
   // Its opacity is set to 0: we don't see it by default.
-  let tooltip = d3.select("#my_dataviz")
+  let tooltip = d3.select("#scatter")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
