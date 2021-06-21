@@ -14,7 +14,7 @@ const svg = d3.select("#scatter")
           "translate(" + margin.left + "," + margin.top + ")");
 
 let chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 //Read the data
 d3.csv("D3_data_journalism/data.csv").then(censusData => {
@@ -81,7 +81,7 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
 
   let mousemove = function(d) {
     tooltip
-      .html(`<strong>Healthcare (%):</strong> ${d.healthcare} <br> 
+      .html(`<strong>${d.state}</strong><hr><strong>Healthcare (%):</strong> ${d.healthcare} <br> 
       <strong>Household Income:</strong> ${d.income.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD'
@@ -99,7 +99,7 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
   }
 
   // Add dots
-  let circlesGroup = svg.append('g')
+  svg.append('g')
     .selectAll("dot")
     .data(censusData.filter(function(d,i){return i})) // the .filter part is just to keep a few dots on the chart, not all of them
     .enter()
@@ -107,22 +107,13 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
       .attr("cx", function (d) { return x(d.income); } )
       .attr("cy", function (d) { return y(d.healthcare); } )
       .attr("r", 15)
-      .style("fill", "#69b3a2")
+      .style("fill", "green")
       .style("opacity", 0.5)
       .style("stroke", "white")
     .on("mouseover", mouseover )
     .on("mousemove", mousemove )
     .on("mouseleave", mouseleave )
-  
-  let circleLabels = chartGroup.selectAll("text").data(censusData).enter().append("text");
 
-    circleLabels
-      .attr("x", function(d) { return d.income; })
-      .attr("y", function(d) { return d.healthcare; })
-      .text(function(d) { return d.abbr; })
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "5px")
-      .attr("fill", "white");
     
     // Label the Y-Axis
     svg.append("text")
@@ -131,5 +122,5 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
     .attr("x", 50 - (height / 2))
     .attr("dy", "1em")
     .classed("active", true)
-    .text("Percentage of Population Enrolled in Healthcare (%)");
+    .text("Percentage of Population Lacking Healthcare Coverage (%)");
   });
