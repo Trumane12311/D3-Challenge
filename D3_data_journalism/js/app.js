@@ -87,7 +87,7 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
       <strong>Household Income:</strong> ${d.income.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD'}
-        )}`)
+        )}`)  // Added conversion for currency formatting.
       .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -96,7 +96,7 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
   let mouseleave = function(d) {
     tooltip
       .transition()
-      .duration(4000)
+      .duration(4000) // increased duration of popup box
       .style("opacity", 0)
   }
 
@@ -121,7 +121,7 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
   chartGroup.append("text")
     .style("font-size", "10px")
     .selectAll("tspan")
-    .data(censusData)
+    .data(censusData)  // Removed filter to add circle to AL
     .enter()
     .append("tspan")
         .attr("x", function(d) {
