@@ -71,11 +71,11 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
 
   let mousemove = function(d) {
     tooltip
-      .html('<strong>Healthcare (%):</strong>' + d.healthcare + "\n" 
-      + '<strong>Household Income ($):</strong>' + d.income.toLocaleString('en-US', {
+      .html(`<strong>Healthcare (%):</strong> ${d.healthcare} <br> 
+      <strong>Household Income:</strong> ${d.income.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD'
-      }))
+      })}`)
       .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
       .style("top", (d3.mouse(this)[1]) + "px")
   }
