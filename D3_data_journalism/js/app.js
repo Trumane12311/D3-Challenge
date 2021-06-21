@@ -114,6 +114,25 @@ d3.csv("D3_data_journalism/data.csv").then(censusData => {
     .on("mousemove", mousemove )
     .on("mouseleave", mouseleave )
 
+  let chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  chartGroup.append("text")
+    .style("font-size", "10px")
+    .selectAll("tspan")
+    .data(censusData)
+    .enter()
+    .append("tspan")
+        .attr("x", function(data) {
+            return x(data.income);
+        })
+        .attr("y", function(data) {
+            return y(data.healthcare);
+        })
+        .text(function(data) {
+            return data.abbr
+        });
+
     
     // Label the Y-Axis
     svg.append("text")
